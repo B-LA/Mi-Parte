@@ -27,6 +27,15 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
                        role="button" aria-haspopup="true" 
+                       aria-expanded="false">Gerentes<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${pageContext.request.contextPath}/gerente/create">Registrar gerente</a></li>
+                        <li><a href="${pageContext.request.contextPath}/gerente/list">Ver lista de gerente</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
+                       role="button" aria-haspopup="true" 
                        aria-expanded="false">Mecanicos<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="${pageContext.request.contextPath}/mecanico/create">Registrar mecanico</a></li>
@@ -36,19 +45,19 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
                        role="button" aria-haspopup="true" 
-                       aria-expanded="false">Libros<span class="caret"></span></a>
+                       aria-expanded="false">Casos<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="${pageContext.request.contextPath}/libros/create">Registrar libro</a></li>
-                        <li><a href="${pageContext.request.contextPath}/libros/list">Ver lista de libros</a></li>
+                        <li><a href="${pageContext.request.contextPath}/caso/create">Registrar Caso</a></li>
+                        <li><a href="${pageContext.request.contextPath}/caso/list">Ver lista de Casos</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
                        role="button" aria-haspopup="true" 
-                       aria-expanded="false">Editoriales<span class="caret"></span></a>
+                       aria-expanded="false">Vehiculos<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="${pageContext.request.contextPath}/editoriales/create">Registrar editorial</a></li>
-                        <li><a href="${pageContext.request.contextPath}/editoriales/list">Ver lista de editoriales</a></li>
+                        <li><a href="${pageContext.request.contextPath}/vehiculo/create">Registrar vehiculo</a></li>
+                        <li><a href="${pageContext.request.contextPath}/vehiculo/list">Ver lista de vehiculo</a></li>
                     </ul>
                 </li>
             </ul>
