@@ -5,8 +5,10 @@
  */
 package sv.edu.udb.controller;
 
+import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +24,9 @@ import sv.edu.udb.model.MecanicoModel;
 @Controller
 @RequestMapping("mecanico")
 public class MecanicoController {
-    
+
     MecanicoModel mecModel = new MecanicoModel();
-    
+
     @RequestMapping("list")
     public String listarMecanico(Model model) {
 
@@ -32,64 +34,73 @@ public class MecanicoController {
 
         return "mecanico/listar";
     }
-    
+
     @RequestMapping(value = "create", method = RequestMethod.GET)
-    public String nuevoMecanico(Model model){
+    public String nuevoMecanico(Model model) {
         //se le pasa a la vista el objeto que debe llenarse desde el formulario
         model.addAttribute("mecanico", new Mecanico());
-        
+
         return "mecanico/nuevo";
     }
-    
+
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String insertarMecanico(@ModelAttribute("mecanico") Mecanico mecanico,
-            Model model, RedirectAttributes atributos){
-        
-        if (mecModel.insertarMecanico(mecanico)>0) {
+    public String insertarMecanico(@Valid @ModelAttribute("mecanico") Mecanico mecanico,
+            BindingResult result, Model model, RedirectAttributes atributos) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("mecanico", new Mecanico());
+
+            return "mecanico/nuevo";
+        }
+
+        if (mecModel.insertarMecanico(mecanico) > 0) {
             //si se insertó, se pasa el mensaje de éxito
             atributos.addFlashAttribute("exito", "Mecanico registrado exitosamente");
-            
+
             //redireccion en el cliente hacia el metodo listarMecanico()
             return "redirect:/mecanico/list";
-        }else{
+        } else {
             //si no insertó regresamos al formulario de ingreso
             model.addAttribute("mecanico", mecanico);
             return "mecanicos/nuevo";
         }
     }
-    
+
     @RequestMapping(value = "edit/{codigo}", method = RequestMethod.GET)
-    public String obtenerMecanico(@PathVariable("codigo") int codigo, Model model){
+    public String obtenerMecanico(@PathVariable("codigo") int codigo, Model model) {
         model.addAttribute("mecanico", mecModel.obtenerMecanico(codigo));
-        
+
         return "mecanico/editar";
     }
-    
-    @RequestMapping( value = "edit/{codigo}", method = RequestMethod.POST)
-    public String modificarMecanico(Mecanico mecanico, Model model, 
-            RedirectAttributes atributos){
-        if (mecModel.modificarMecanico(mecanico)>0) {
+
+    @RequestMapping(value = "edit/{codigo}", method = RequestMethod.POST)
+    public String modificarMecanico(@Valid Mecanico mecanico, Model model,
+            BindingResult result, RedirectAttributes atributos) {
+        if (result.hasErrors()) {
+            model.addAttribute("mecanico", new Mecanico());
+            return "mecanico/nuevo";
+        }
+
+        if (mecModel.modificarMecanico(mecanico) > 0) {
             atributos.addFlashAttribute("exito", "Mecanico modificado exitosamente");
-            
+
             return "redirect:/mecanico/list";
         } else {
             model.addAttribute("mecanico", mecanico);
-            
+
             return "mecanico/editar";
         }
     }
-    
+
     @RequestMapping("delete/{codigo}")
-    public String eliminarMecanico(@PathVariable("codigo") String codigo, Model model, RedirectAttributes atributos){
-        if (mecModel.eliminarMecanico(codigo)>0) {
+    public String eliminarMecanico(@PathVariable("codigo") String codigo, Model model, RedirectAttributes atributos) {
+        if (mecModel.eliminarMecanico(codigo) > 0) {
             atributos.addFlashAttribute("exito", "Mecanico eliminado exitosamente");
         } else {
             atributos.addFlashAttribute("fracaso", "No se puede eliminar esta mecanico");
         }
-        
+
         return "redirect:/mecanico/list";
     }
-    
+
 }
-
-

@@ -5,8 +5,10 @@
  */
 package sv.edu.udb.controller;
 
+import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,8 +56,16 @@ public class CasosController {
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String insertarCasos(@ModelAttribute("caso") Caso caso,
-            Model model, RedirectAttributes atributos) {
+    public String insertarCasos(@Valid @ModelAttribute("caso") Caso caso,
+            BindingResult result, Model model, RedirectAttributes atributos) {
+        if (result.hasErrors()) {
+            model.addAttribute("listaMecanicos", meca.listarMecanicos());
+            model.addAttribute("listaVehiculo", vehiculo.listarVehiculos());
+            model.addAttribute("listaGerente", gerente.listarGerentes());
+            model.addAttribute("caso", new Caso());
+
+            return "caso/nuevo";
+        }
         int variable = mecModel.insertarCaso(caso);
         System.out.println("Valor es" + variable);
         if (variable > 0) {

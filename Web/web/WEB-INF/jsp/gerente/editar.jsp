@@ -5,14 +5,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Editar editorial</title>
+        <title>Editar Gerente</title>
         <jsp:include page="/WEB-INF/jsp/cabecera.jsp"/>
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/menu.jsp"/>
         <div class="container">
             <div class="row">
-                <h3>Editar editorial</h3>
+                <h3>Editar Gerente</h3>
             </div>
             <div class="row">
                 <div class=" col-md-7">

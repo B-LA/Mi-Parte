@@ -17,9 +17,10 @@
                 <h3>Nuevo Vehiculo</h3>
             </div>
             <div class="row">
+                 <f:errors cssClass="alert alert-danger" element="div" path="*"/>
                 <f:form action="create"
                         modelAttribute="vehiculo" method="post">
-                    <f:errors cssClass="alert alert-danger" element="div" path="*"/>
+                   
                     <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Campo Requirido</strong></div>
                     
                                 <div class="form-group">

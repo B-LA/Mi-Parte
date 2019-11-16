@@ -21,7 +21,6 @@
                 <div class=" col-md-7">
                     <f:form action="create" 
                             modelAttribute="cliente" method="post">
-                        
                         <f:errors cssClass="alert alert-danger" element="div" path="*" />
                         <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Campos requeridos</strong></div>
                         <div class="form-group">

@@ -5,8 +5,10 @@
  */
 package sv.edu.udb.controller;
 
+import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,11 +50,16 @@ public class VehiculoController {
     }
     
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String insertarVehiculo(@ModelAttribute("vehiculo") Vehiculo vehiculo,
-            Model model, RedirectAttributes atributos){
-        int variable = mecModel.insertarVehiculo(vehiculo);
-        System.out.println("Valor es" + variable);
-        if (variable>0) {
+    public String insertarVehiculo(@Valid @ModelAttribute("vehiculo") Vehiculo vehiculo,
+            BindingResult result,Model model, RedirectAttributes atributos){
+        
+        if(result.hasErrors()){
+        model.addAttribute("listarClientes", cli.listarClientes());
+        model.addAttribute("vehiculo", new Vehiculo());
+        return "vehiculo/nuevo";
+        }
+        
+        if (mecModel.insertarVehiculo(vehiculo)>0) {
             //si se insertó, se pasa el mensaje de éxito
             atributos.addFlashAttribute("exito", "Vehiculo registrado exitosamente");
             
@@ -73,8 +80,15 @@ public class VehiculoController {
     }
     
     @RequestMapping( value = "edit/{codigo}", method = RequestMethod.POST)
-    public String modificarVehiculo(Vehiculo vehiculo, Model model, 
+    public String modificarVehiculo(@Valid Vehiculo vehiculo, Model model, BindingResult result,
             RedirectAttributes atributos){
+        if(result.hasErrors()){
+            model.addAttribute("listarClientes", cli.listarClientes());
+        model.addAttribute("vehiculo", new Vehiculo());
+        
+        return "vehiculo/nuevo";
+        }
+        
         if (mecModel.modificarVehiculo(vehiculo)>0) {
             atributos.addFlashAttribute("exito", "Vehiculo modificado exitosamente");
             

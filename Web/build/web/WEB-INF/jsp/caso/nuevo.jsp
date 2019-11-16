@@ -20,8 +20,7 @@
             <div class="row">
                 <f:form action="create"
                         modelAttribute="caso" method="post">
-                    <f:errors cssClass="alert alert-danger" element="div" path="*"/>
-                   
+                    <f:errors cssClass="alert alert-danger" element="div" path="*" />
                     <div class="form-group">
                             <label for="vehiculo">Placa del Vehiculo</label>
                             <div class="input-group">
@@ -93,7 +92,7 @@
                         </div>
                         </div>
                     <f:button class="btn btn-info">GUARDAR</f:button>
-                        <a class="btn btn-danger" href="<s:url value="/casos/list"/>">CANCELAR</a>
+                        <a class="btn btn-danger" href="<s:url value="/caso/list"/>">CANCELAR</a>
                 </f:form>    
             </div>
         </div>

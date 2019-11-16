@@ -5,8 +5,10 @@
  */
 package sv.edu.udb.controller;
 
+import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,8 +47,15 @@ public class GerenteController {
     }
     
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String insertarGerente(@ModelAttribute("gerente") Gerente gerente,
-            Model model, RedirectAttributes atributos){
+    public String insertarGerente(@Valid @ModelAttribute("gerente") Gerente gerente,
+            BindingResult result, Model model, RedirectAttributes atributos){
+        
+         if(result.hasErrors()){
+            model.addAttribute("gerente", gerente);
+            return "gerente/nuevo";
+        }
+            
+        
         int variable = mecModel.insertarGerente(gerente);
         System.out.println("Valor es" + variable);
         if (variable>0) {
@@ -70,8 +79,13 @@ public class GerenteController {
     }
     
     @RequestMapping( value = "edit/{codigo}", method = RequestMethod.POST)
-    public String modificarGerente(Gerente gerente, Model model, 
+    public String modificarGerente(@Valid Gerente gerente, BindingResult result, Model model, 
             RedirectAttributes atributos){
+        if(result.hasErrors()){
+            model.addAttribute("gerente",gerente);
+            return "gerente/editar";
+        }
+        
         if (mecModel.modificarGerente(gerente)>0) {
             atributos.addFlashAttribute("exito", "Gerente modificado exitosamente");
             

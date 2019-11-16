@@ -86,7 +86,7 @@
                         </div>
                                    
                         <f:button class="btn btninfo">Guardar</f:button>
-                        <a class="btn btn-danger" href="<s:url value="/gerentes/list"/>">Cancelar</a>
+                        <a class="btn btn-danger" href="<s:url value="/gerente/list"/>">Cancelar</a>
                     </f:form>
                 </div>
             </div>
